@@ -1,18 +1,8 @@
 var sequence = [];
+addStep(); //game starts with 1 instruction
+console.log(sequence);
 
 var step = 0;
-
-var testButton = document.getElementById("test-button");
-var testFunction = function() {
-	addStep();
-	console.log(sequence);
-	//console.log(step);
-	console.log(sequence[step]);
-	step++;
-};
-testButton.addEventListener("click", function(){
-	testFunction();
-});
 
 var oneButton = document.getElementById("one-button");
 var twoButton = document.getElementById("two-button");
@@ -21,15 +11,24 @@ var fourButton = document.getElementById("four-button");
 
 var buttons = [oneButton, twoButton, threeButton, fourButton];
 
-var getInput = function(number) {
-	console.log(number);
+var compareInput = function(number) {
+	var currentStep = sequence[step];
+	if(number == currentStep) {
+		console.log("Good job!");
+		addStep();
+		step++;
+	} else {
+		console.log("Damn!");
+		step = 0;
+	}
+	console.log(sequence);
 };
 
 for (var i = 1; i < 5; i++ ) {
 	var button = buttons[i - 1];
 	(function(num) {
 		button.addEventListener("click", function() {
-			getInput(num);
+			compareInput(num);
 		});
 	})(i);
 }
