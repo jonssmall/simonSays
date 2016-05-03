@@ -45,7 +45,12 @@ var addStep = function() {
 	sequence.push(getRandomInt(1,4));
 };
 
-addStep(); //game starts with 1 instruction
-console.log(sequence);
+var startGame = function() {
+	sequence = [];
+	addStep(); //game starts with 1 instruction
+	console.log(sequence);
+};
 
-//todo: game starting function 
+document.getElementById("start-button").addEventListener("click", function() {
+	startGame();
+});
