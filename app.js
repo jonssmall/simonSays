@@ -48,12 +48,18 @@ var lightUpInstructions = function(sequence) {
 
 var compareInput = function(number) {
 	var currentStep = sequence[step];
-	if(number == currentStep) {		
+	if(number == currentStep) {
 		if(step + 1 == sequence.length) { //Are you at the end of the sequence, winning the round?
-			step = 0; //restart player's sequence
-			addStep();	// Instructions grow by 1
-			announceRound(sequence);
-			lightUpInstructions(sequence);
+			if(sequence.length == 20) {
+				alert("Good job.");
+				startGame();
+				return;
+			} else {
+				 step = 0; //restart player's sequence
+				addStep();	// Instructions grow by 1
+				announceRound(sequence);
+				lightUpInstructions(sequence);
+			}			
 		} else {
 			step++; //If not, move to the next instruction
 		}		
