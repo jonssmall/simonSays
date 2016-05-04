@@ -28,3 +28,8 @@ h1 {
 #four-button {
 	background-color: blue;
 }
+
+#failure-message {
+	color: red;
+	display: none;
+}

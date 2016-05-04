@@ -56,10 +56,13 @@ var compareInput = function(number) {
 		} else {
 			step++; //If not, move to the next instruction
 		}		
-	} else {		
-		step = 0;
-		sequence = [];
-		addStep();
+	} else {
+		var failureMessage = document.getElementById("failure-message");
+		failureMessage.setAttribute("style", "display: inline");	
+		setTimeout(function(){ 
+			failureMessage.setAttribute("style", ""); 
+		}, 1000);
+		startGame();
 	}
 	console.log(sequence);
 };
