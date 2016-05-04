@@ -52,6 +52,7 @@ var compareInput = function(number) {
 		if(step + 1 == sequence.length) { //Are you at the end of the sequence, winning the round?
 			step = 0; //restart player's sequence
 			addStep();	// Instructions grow by 1
+			announceRound(sequence);
 			lightUpInstructions(sequence);
 		} else {
 			step++; //If not, move to the next instruction
@@ -76,11 +77,17 @@ var addStep = function() {
 	sequence.push(getRandomInt(1,4));
 };
 
+var announceRound = function(sequence) {
+	var counter = document.getElementById("round-counter");
+	counter.innerHTML = "Round: " + sequence.length;
+};
+
 var startGame = function() {
 	sequence = [];
 	step = 0;
 	addStep(); //game starts with 1 instruction
 	console.log(sequence);
+	announceRound(sequence);
 	lightUpInstructions(sequence);
 };
 
