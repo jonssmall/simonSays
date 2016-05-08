@@ -1,6 +1,7 @@
 var sequence = [];
 
 var step = 0;
+var strict = true;
 
 var colorHack = {
 	1: "47AD32",
@@ -55,7 +56,7 @@ var compareInput = function(number) {
 				startGame();
 				return;
 			} else {
-				 step = 0; //restart player's sequence
+				step = 0; //restart player's sequence
 				addStep();	// Instructions grow by 1
 				announceRound(sequence);
 				lightUpInstructions(sequence);
@@ -64,14 +65,26 @@ var compareInput = function(number) {
 			step++; //If not, move to the next instruction
 		}		
 	} else {
-		var failureMessage = document.getElementById("failure-message");
-		failureMessage.setAttribute("style", "display: inline");	
-		setTimeout(function(){ 
-			failureMessage.setAttribute("style", ""); 
-		}, 1000);
-		startGame();
+		if (strict) {
+			//Strict mode is on, blow out entire game
+			alertFailure();
+			startGame();
+		} else {
+			//Strict mode is off, keep sequence, reset steps, alert player, light board
+			step = 0;	
+			alertFailure();		
+			lightUpInstructions(sequence);
+		}
 	}
 	console.log(sequence);
+};
+
+var alertFailure = function() {
+	var failureMessage = document.getElementById("failure-message");
+	failureMessage.setAttribute("style", "display: inline");	
+	setTimeout(function(){ 
+		failureMessage.setAttribute("style", ""); 
+	}, 1000);
 };
 
 //http://stackoverflow.com/questions/1527803/generating-random-whole-numbers-in-javascript-in-a-specific-range
@@ -99,4 +112,17 @@ var startGame = function() {
 
 document.getElementById("start-button").addEventListener("click", function() {
 	startGame();
+});
+
+var toggleStrict = function() {
+	if (strict) {
+		strict = false;
+	} else {
+		strict = true;
+	}
+	alert("Strict Mode: " + strict);
+};
+
+document.getElementById("strict-button").addEventListener("click", function() {
+	toggleStrict();
 });
